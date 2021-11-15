@@ -2,7 +2,7 @@
     "pluginmetadataversion": 2,
     "name": "DBG Loader",
     "type": [
-        "binaryview"
+        "helper"
     ],
     "api": [
         "python3"
