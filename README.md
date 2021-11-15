@@ -28,6 +28,8 @@ You can then use `Tools > Plugins > Load COFF DBG File` to load a `.DBG` or
 load the symbols before analyzing the binary as it will let Binary Ninja know
 exactly where functions are!
 
+![Binary Ninja screenshot showing symbolized and typed output](/binaryninja/example.png)
+
 # Example
 
 ```
