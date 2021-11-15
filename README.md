@@ -16,6 +16,18 @@ G <addr> <global>
 S <addr> <source>:<line>
 ```
 
+# Binary Ninja Plugin
+
+Included is a `binaryninja` plugin. Copy the folder `binaryninja/dbg_load` to
+your `~/.binaryninja/plugins` folder.
+
+Then install this tool to your `PATH` by `cargo install --path .`.
+
+You can then use `Tools > Plugins > Load COFF DBG File` to load a `.DBG` or
+`.DB_` file into your program. For best results turn off auto-analysis and
+load the symbols before analyzing the binary as it will let Binary Ninja know
+exactly where functions are!
+
 # Example
 
 ```
