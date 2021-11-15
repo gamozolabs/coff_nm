@@ -482,19 +482,18 @@ impl DbgFile {
                     symbol.name.split(|x| *x == 0).next().unwrap())
             };
 
-            // If the class is a public symbol, private symbol, or
-            // an alias (duplicate tag)
-            if matches!(symbol.class, 2 | 3 | 105) {
+            // If the class is a public symbol
+            if matches!(symbol.class, 2) {
                 if symbol.typ == 0x20 {
                     self.functions.insert(symbol.value, name.to_string());
                 } else {
                     self.globals.insert(symbol.value, name.to_string());
                 }
-
-                // Chcek if it's a static class with an aux, if so, we'll look
+            } else if matches!(symbol.class, 3) {
+                // Check if it's a static class with an aux, if so, we'll look
                 // at the section boundaries and try to find matching source
                 // lines
-                if symbol.class == 3 && aux.len() >= 4 && cur_file.is_some() {
+                if aux.len() >= 4 && cur_file.is_some() {
                     // Get the section length, unwrap is okay due to checked
                     // aux size.
                     let slen = u32::from_le_bytes(
@@ -539,6 +538,8 @@ impl DbgFile {
                     aux.split(|x| *x == 0).next().unwrap())
                     .map_err(Error::FilenameUtf8)?;
                 cur_file = Some(filename.to_string());
+            } else if matches!(symbol.class, 105) {
+                // Ignored alias
             } else {
                 return Err(Error::UnknownSymbolClass(symbol.class));
             }
