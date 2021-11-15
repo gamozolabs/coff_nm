@@ -33,5 +33,8 @@ def load_dbg_file(bv, function):
                 # Sourceline
                 bv.set_comment_at(addr, name)
 
+        # Update analysis
+        bv.update_analysis()
+
 PluginCommand.register_for_address("Load COFF DBG file", "Load COFF .DBG file from disk", load_dbg_file)
 
